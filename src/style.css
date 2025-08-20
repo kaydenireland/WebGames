@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Reg';
-    src: url('assets/fonts/BaiJamjuree-Bold.ttf') format("truetype");
+    src: url('../assets/fonts/BaiJamjuree-Bold.ttf') format("truetype");
     font-display: swap;
 }
 
@@ -9,7 +9,8 @@ body {
     text-align: center;
 }
 
-#board {
-    background-color: blue;
+#gameContainer {
+    border: 1px solid #333333;
+    /*background-color: #959595;*/
 }
 
