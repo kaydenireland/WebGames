@@ -1,5 +1,10 @@
 
 
+// Settings Variables
+
+let sound = true;
+let music = true;
+
 // Game Container Setup
 
 const canvas = document.getElementById('gameContainer');
@@ -15,7 +20,7 @@ let p_x_pos = 172;
 let p_y_pos = 300;
 let p_velo = 0;
 
-let p_img = 'assets/textures/flappybird/player/heart.png';
+let p_img = '/assets/textures/flappybird/player/heart.png';
 
 let moved = false;
 let gameOver = false;
@@ -31,22 +36,22 @@ let pipe_velo = 0;
 let max_pipe_velo = 2;
 let pipe_scored = false
 
-let pipe_up_img = 'assets/textures/flappybird/pipes/green_up.png';
-let pipe_down_img = 'assets/textures/flappybird/pipes/green_down.png';
+let pipe_up_img = '/assets/textures/flappybird/pipes/green_up.png';
+let pipe_down_img = '/assets/textures/flappybird/pipes/green_down.png';
 
 // Variable Setup
 
 let bg_x_pos = 0;
 const bg_width = 400;
 let bg_x_velo = 0;
-let bg_img = 'assets/textures/flappybird/background/default.png';
+let bg_img = '/assets/textures/flappybird/background/default.png';
 let max_bg_velo = 1;
 
 let ground_x_pos = 0;
 const ground_width = 400;
 let ground_x_velo = 0;
 let max_ground_velo = max_pipe_velo;
-let ground_img = 'assets/textures/flappybird/ground/grass.png';
+let ground_img = '/assets/textures/flappybird/ground/grass.png';
 
 
 
@@ -57,9 +62,9 @@ let high_score = 0;
 
 // Sounds
 
-let slap_sfx = new Audio('assets/sounds/flappybird/slap.wav')
-let woosh_sfx = new Audio('assets/sounds/flappybird/woosh.wav')
-let score_sfx = new Audio('assets/sounds/flappybird/score.wav')
+let slap_sfx = new Audio('/assets/sounds/flappybird/slap.wav')
+let woosh_sfx = new Audio('/assets/sounds/flappybird/woosh.wav')
+let score_sfx = new Audio('/assets/sounds/flappybird/score.wav')
 
 
 // Image Loading
