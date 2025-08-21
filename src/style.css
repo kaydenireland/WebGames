@@ -5,12 +5,11 @@
 }
 
 body {
-    font-family: 'Reg';
+    font-family: 'Reg', serif;
     text-align: center;
 }
 
-#gameContainer {
-    border: 1px solid #333333;
-    /*background-color: #959595;*/
-}
 
+#gameContainer {
+    padding: 15px;
+}

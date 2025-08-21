@@ -179,6 +179,7 @@ function jump(key) {
     }
 
     if (key.code === "Space") {
+        event.preventDefault();
         p_velo = +6;
         woosh_sfx.currentTime = 0;
         woosh_sfx.play();
