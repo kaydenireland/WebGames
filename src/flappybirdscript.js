@@ -15,7 +15,7 @@ let p_x_pos = 172;
 let p_y_pos = 300;
 let p_velo = 0;
 
-let p_img = 'assets/textures/flappybird/player/python.png';
+let p_img = 'assets/textures/flappybird/player/heart.png';
 
 let moved = false;
 let gameOver = false;
@@ -31,22 +31,22 @@ let pipe_velo = 0;
 let max_pipe_velo = 2;
 let pipe_scored = false
 
-let pipe_up_img = 'assets/textures/flappybird/pipes/orange_up.png';
-let pipe_down_img = 'assets/textures/flappybird/pipes/orange_down.png';
+let pipe_up_img = 'assets/textures/flappybird/pipes/green_up.png';
+let pipe_down_img = 'assets/textures/flappybird/pipes/green_down.png';
 
 // Variable Setup
 
 let bg_x_pos = 0;
 const bg_width = 400;
 let bg_x_velo = 0;
-let bg_img = 'assets/textures/flappybird/background/purple.png';
+let bg_img = 'assets/textures/flappybird/background/default.png';
 let max_bg_velo = 1;
 
 let ground_x_pos = 0;
 const ground_width = 400;
 let ground_x_velo = 0;
 let max_ground_velo = max_pipe_velo;
-let ground_img = 'assets/textures/flappybird/ground/water.png';
+let ground_img = 'assets/textures/flappybird/ground/grass.png';
 
 
 
@@ -62,14 +62,32 @@ let woosh_sfx = new Audio('assets/sounds/flappybird/woosh.wav')
 let score_sfx = new Audio('assets/sounds/flappybird/score.wav')
 
 
+// Image Loading
+
+// Preload images globally
+const images = {};
+
+function loadImage(key, src) {
+    const img = new Image();
+    img.src = src;
+    images[key] = img;
+}
+
+// Load everything once at startup
+loadImage("player", p_img);
+loadImage("pipe_up", pipe_up_img);
+loadImage("pipe_down", pipe_down_img);
+loadImage("bg", bg_img);
+loadImage("ground", ground_img);
+
 
 window.onload = function () {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
     drawAllAssets();
-    drawAsset(pipe_down_img, pipe_x_pos, pipe_height + pipe_y_pos, pipe_width, pipe_height);
-    drawAsset(pipe_up_img, pipe_x_pos, (2 * pipe_height) + pipe_y_pos + pipe_gap, pipe_width, pipe_height);
+    drawAsset("pipe_down", pipe_x_pos, pipe_height + pipe_y_pos, pipe_width, pipe_height);
+    drawAsset("pipe_up", pipe_x_pos, (2 * pipe_height) + pipe_y_pos + pipe_gap, pipe_width, pipe_height);
 
     requestAnimationFrame(update);
     document.addEventListener("keydown", jump);
@@ -128,8 +146,8 @@ function update() {
     // Draw All Assets
     drawAllAssets();
     // Draw Pipes
-    drawAsset(pipe_down_img, pipe_x_pos, 0 - pipe_height + pipe_y_pos, pipe_width, pipe_height);
-    drawAsset(pipe_up_img, pipe_x_pos, pipe_y_pos + pipe_gap, pipe_width, pipe_height);
+    drawAsset("pipe_down", pipe_x_pos, 0 - pipe_height + pipe_y_pos, pipe_width, pipe_height);
+    drawAsset("pipe_up", pipe_x_pos, pipe_y_pos + pipe_gap, pipe_width, pipe_height);
 
 
     // Reset Player if too high or low
@@ -200,20 +218,16 @@ function game_over() {
 }
 
 
-function drawAsset(src, x, y, w, h) {
-    let img = new Image();
-    img.src = src;
-    img.onload = function () {
-        ctx.drawImage(img, x, y, w, h);
-    }
+function drawAsset(key, x, y, w, h) {
+    ctx.drawImage(images[key], x, y, w, h);
 }
 
 function drawAllAssets(){
-    drawAsset(bg_img, bg_x_pos, 0, bg_width, 536)
-    drawAsset(bg_img, bg_x_pos + 400, 0, bg_width, 536)
-    drawAsset(ground_img, ground_x_pos, 536, ground_width, 64)
-    drawAsset(ground_img, ground_x_pos + 400, 536, ground_width, 64)
-    drawAsset(p_img, p_x_pos, p_y_pos, p_width, p_height)
+    drawAsset("bg", bg_x_pos, 0, bg_width, 536)
+    drawAsset("bg", bg_x_pos + 400, 0, bg_width, 536)
+    drawAsset("ground", ground_x_pos, 536, ground_width, 64)
+    drawAsset("ground", ground_x_pos + 400, 536, ground_width, 64)
+    drawAsset("player", p_x_pos, p_y_pos, p_width, p_height)
 
 }
 
@@ -227,4 +241,12 @@ function check_collision(x1,y1,w1,h1, x2,y2,w2,h2) {
         x2 < x1+w1 &&
         y1 < y2+h2 &&
         y2 < y1+h1
+}
+
+function replaceImage(key, newSrc) {
+    const img = new Image();
+    img.onload = () => {
+        images[key] = img;  // only swap once loaded
+    };
+    img.src = newSrc;
 }
